@@ -52,6 +52,7 @@ def main():
     args = parser.parse_args()
     season = args.Season
     title = args.Title
+    directory = args.directory
 
     files = [f for f in os.listdir(args.directory) if isfile(join(args.directory, f))]
     if len(files) == 0:
@@ -79,9 +80,11 @@ def main():
         else:
             episode = f'{i}'
         
-        name = f'{title} - S{season_str}E{episode}'
-        print(name)
-        
+        name = f'{title} - S{season_str}E{episode}.{extension}'
+        full_path = join(directory, video)
+        destination = join(directory, name)
+        print(f'Renaming {video} to {name}')
+        os.rename(full_path, destination)        
 
 if __name__ == '__main__':
     main()
