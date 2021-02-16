@@ -53,6 +53,10 @@ def main():
     season = args.Season
     title = args.Title
     directory = args.directory
+    readonly = args.readonly
+
+    if readonly:
+        print("Running in readonly mode. No files will be renamed")
 
     files = [f for f in os.listdir(args.directory) if isfile(join(args.directory, f))]
     if len(files) == 0:
@@ -83,8 +87,12 @@ def main():
         name = f'{title} - S{season_str}E{episode}.{extension}'
         full_path = join(directory, video)
         destination = join(directory, name)
-        print(f'Renaming {video} to {name}')
-        os.rename(full_path, destination)        
+
+        if readonly:
+            print(f'Program would rename {video} to {name}')
+        else:
+            print(f'Renaming {video} to {name}')
+            os.rename(full_path, destination)        
 
 if __name__ == '__main__':
     main()
