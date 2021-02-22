@@ -5,6 +5,9 @@ from os.path import isfile, join
 CWD = os.getcwd()
 FILE_FORMATS = ['avi', 'm4v', 'mkv', 'mov', 'mp4', 'mpg', 'mpeg']
 
+def to_lower(string):
+    return string.lower()
+
 def dir_path(path):
     if os.path.isdir(path):
         return path
@@ -65,6 +68,7 @@ def main():
         # TODO: throw error
 
     video_files = [f for f in files if f.split('.')[-1] in FILE_FORMATS]
+    video_files.sort(key=to_lower)
     if len(video_files) == 0:
         print("Directory does not contain any supported video files, exiting")
         sys.exit()
@@ -89,9 +93,9 @@ def main():
         destination = join(directory, name)
 
         if readonly:
-            print(f'Program would rename {video} to {name}')
+            print(f'{video}    ->    {name}')
         else:
-            print(f'Renaming {video} to {name}')
+            print(f'{video}    ->    {name}')
             os.rename(full_path, destination)        
 
 if __name__ == '__main__':
