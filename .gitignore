@@ -2,3 +2,5 @@
 /env/**
 /linuxenv/**
 settings.json
+.vscode/**
+env/**
